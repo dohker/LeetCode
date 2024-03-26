@@ -1,7 +1,14 @@
-from collections import Counter
-
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        result = [k for k, v in Counter(nums).items() if v > len(nums)/2][0]
-        print(result)
-        return result
+
+            count = 0
+            candidate = None
+
+            for num in nums:
+                if count == 0:
+                    candidate = num
+                    print("candidate: {}, num: {}".format(candidate, num))
+                count += (1 if num == candidate else -1)
+                print(candidate, count)
+
+            return candidate
