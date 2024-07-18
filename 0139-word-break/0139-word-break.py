@@ -1,14 +1,17 @@
-from typing import List
-
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        dp = [False] * (len(s) + 1)
-        dp[0] = True  # 빈 문자열은 항상 wordDict의 단어들로 구성될 수 있다.
-
-        for i in range(1, len(s) + 1):
-            for word in wordDict:
-                if i >= len(word) and dp[i - len(word)] and s[i - len(word):i] == word:
-                    dp[i] = True
-                    break
-
-        return dp[len(s)]
+        def backtrack(start, memo):
+            if start == len(s):
+                return True
+            if memo[start] is not None:
+                return memo[start]
+            for end in range(start + 1, len(s) + 1):
+                if s[start:end] in wordDictSet and backtrack(end, memo):
+                    memo[start] = True
+                    return True
+            memo[start] = False
+            return False
+        
+        wordDictSet = set(wordDict)
+        memo = [None] * len(s)
+        return backtrack(0, memo)
