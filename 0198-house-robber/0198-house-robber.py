@@ -1,15 +1,11 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        memo = {}
+        tabular = []
 
-        def dp(state: int):
-            if state == 0:
-                return nums[state]
-            if state == 1:
-                return max(nums[state-1], nums[state])
+        tabular.append(nums[0]) # 0
+        if len(nums) >= 2:
+            tabular.append(max(nums[0], nums[1])) # 1
 
-            if state not in memo.keys():
-                memo[state] = max(dp(state-1), dp(state-2)+nums[state])
-            
-            return memo[state]
-        return dp(len(nums)-1)
+        for state in range(2, len(nums)):
+            tabular.append(max(tabular[state-1], tabular[state-2] + nums[state]))
+        return tabular[-1]
