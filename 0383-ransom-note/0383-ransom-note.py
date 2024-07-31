@@ -22,9 +22,8 @@ class Solution:
                 hash_table[j] -= 1
                 result -= 1
             if result == 0:
-                break
+                return True
         
-        print(hash_table)
         if result == 0:
             return True
         return False
