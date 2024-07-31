@@ -8,25 +8,23 @@
 
 class Solution:
     def summaryRanges(self, nums: List[int]) -> List[str]:
-        if len(nums) == 0:
+        if not nums:
             return []
 
-        prev = nums[0]
-        output = [str(prev)+"->"]
+        result = []
+        start = nums[0]
 
-        for i in range(1,len(nums)):
-            if (nums[i]-prev) != 1:
-                output[-1] = output[-1]+str(prev)
-                output.append(str(nums[i])+"->")
-            if i == len(nums)-1 and (nums[i]-prev) == 1:
-                output[-1] = output[-1]+str(nums[i])
-            prev = nums[i]
-        
-        if output[-1].endswith('->'):
-            output[-1] = output[-1].replace('->', '')
-        for idx, value in enumerate(output):
-            temp = value.split('->')
-            if len(temp) >= 2 and temp[0] == temp[1]:
-                output[idx] = temp[0]
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i - 1] + 1:
+                if start == nums[i - 1]:
+                    result.append(str(start))
+                else:
+                    result.append(f"{start}->{nums[i - 1]}")
+                start = nums[i]
 
-        return output
+        if start == nums[-1]:
+            result.append(str(start))
+        else:
+            result.append(f"{start}->{nums[-1]}")
+
+        return result
