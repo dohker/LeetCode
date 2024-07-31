@@ -24,6 +24,6 @@ class Solution:
             if result == 0:
                 return True
         
-        if result == 0:
-            return True
+        # if result == 0:
+        #     return True
         return False
