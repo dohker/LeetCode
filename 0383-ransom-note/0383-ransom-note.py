@@ -10,12 +10,12 @@ class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
         hash_table = {}
         result = 0
+
         for i in ransomNote:
             if i not in hash_table:
                 hash_table[i] = 0
             hash_table[i] += 1
             result += 1
-        
 
         for j in magazine:
             if j in hash_table and hash_table[j] != 0:
@@ -23,7 +23,5 @@ class Solution:
                 result -= 1
             if result == 0:
                 return True
-        
-        # if result == 0:
-        #     return True
+
         return False
